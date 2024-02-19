@@ -9,7 +9,7 @@
 
 import numpy as np
 import json
-
+n_seq = 128
 def load_feat(path):
     file = np.loadtxt(path, delimiter=',')
     return file
@@ -38,7 +38,7 @@ def process_feat_seq_word(feat, keys, labels):
     print('In total utterance number : ' + str(utt_cnt))
 
     # -1 means n/a
-    seq_label = np.zeros([utt_cnt, 50, 4]) - 1
+    seq_label = np.zeros([utt_cnt, n_seq, 4]) - 1
 
     prev_utt_id = keys[0].split('.')[0]
 

@@ -14,3 +14,6 @@ TODO.txt
 figure/*
 !figure/gopt_poster.png
 colab/GOPT_old.ipynb
+exp/*
+!exp/README.md
+src/models/__pycache__/

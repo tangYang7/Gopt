@@ -8,15 +8,27 @@
 # train and test the models
 import sys
 import os
-import time
 from torch.utils.data import Dataset, DataLoader
-
+import datetime
 sys.path.append(os.path.dirname(os.path.dirname(sys.path[0])))
 
 from models import *
 import argparse
 
-print("I am process %s, running on %s: starting (%s)" % (os.getpid(), os.uname()[1], time.asctime()))
+class bcolors:
+    HEADER = '\033[95m'
+    YELLOW = '\033[93m'
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+print("I am process %s, running on %s: starting (%s)" % (os.getpid(), os.uname()[1], time))
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("--exp-dir", type=str, default="./exp/", help="directory to dump experiments")
 parser.add_argument('--lr', '--learning-rate', default=1e-3, type=float, metavar='LR', help='initial learning rate')
@@ -221,7 +233,7 @@ def validate(audio_model, val_loader, args, best_mse):
         word_mse, word_corr, valid_word_pred, valid_word_target = valid_word(A_word, A_word_target)
 
         if phn_mse < best_mse:
-            print('new best phn mse {:.3f}, now saving predictions.'.format(phn_mse))
+            print(f'{bcolors.YELLOW}new best phn mse {phn_mse:.3f}, now saving predictions.{bcolors.ENDC}')
 
             # create the directory
             if os.path.exists(args.exp_dir + '/preds') == False:

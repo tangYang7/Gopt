@@ -27,13 +27,14 @@ exp_dir=../exp/gopt-${lr}-${depth}-${head}-${batch_size}-${embed_dim}-${model}-$
 
 # repeat times
 repeat_list=(0 1 2 3 4)
+# repeat_list=(0)
 
 for repeat in "${repeat_list[@]}"
 do
   mkdir -p $exp_dir-${repeat}
-  python ./traintest.py --lr ${lr} --exp-dir ${exp_dir}-${repeat} --goptdepth ${depth} --goptheads ${head} \
+  python3 ./traintest.py --lr ${lr} --exp-dir ${exp_dir}-${repeat} --goptdepth ${depth} --goptheads ${head} \
   --batch_size ${batch_size} --embed_dim ${embed_dim} \
   --model ${model} --am ${am}
 done
 
-python ./collect_summary.py --exp-dir $exp_dir
+# python ./collect_summary.py --exp-dir $exp_dir
